@@ -28,8 +28,8 @@
         </h1>
             <div id="photoContainer" class="photoContainer">
                 <div class="photo" ng-repeat="photoPost in photoPosts">
-                        <a class="likeBtn axnBtn btn"><i class="icon-thumbs-up"></i>Like</a>
-                        <a class="commentBtn axnBtn btn"><i class="icon-comment"></i>Comment</a>
+                        <a showonhoverparent class="likeBtn axnBtn btn" ng-click='like(photoPost)'><i class="icon-thumbs-up" ></i>Like</a>
+                        <a showonhoverparent class="commentBtn axnBtn btn" ng-click='showCommentField(photoPost)'><i class="icon-comment"></i>Comment</a>
                     <img ng-src="{{photoPost.photo.url}}" class="photoInfo" />
                     <div >
                         <label class="caption">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div ng-show="photoPost.comments_cnt > 0" class="comments" >
+                    <div class="comments">
                         <div class="comment" ng-repeat="comment in photoPost.comments">
                             <table width="100%" cellpadding=2px><tr><td width="24px" valign="top">
                                 <img ng-src="{{comment.creator.photo_url}}" style='width:24px;height:24px' />
@@ -53,6 +53,11 @@
                                 <label class="commentTxt">{{comment.text}}</label>
                             </td><tr></table>
                         </div>
+
+                    </div>
+                     <div class="commentWrap">
+                            <textarea class="c11" placeholder="Add a comment..."></textarea>
+                                <a  class="btn btn-mini commentPostBtn" ng-click='showCommentField(photoPost)'><i class="icon-comment"></i>Comment</a>
                     </div>
                 </div>
 

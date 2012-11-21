@@ -299,16 +299,12 @@ a:hover {
   margin-left: 22px;
 }
 
-#photoContainer {
-
-}
-
 .photo {
   background-color:#ffffff;
   background-repeat: no-repeat;
   margin: 2px;
   max-width:185px;
-  max-height:360px;
+  max-height:600px;
   cursor:pointer;
   padding: 10px;
 
@@ -356,7 +352,7 @@ a:hover {
 .comments {
   border-bottom-width: 0;
   overflow:auto;
-  max-height: 100px;
+  max-height: 110px;
 }
 
 .comments .comment {
@@ -373,17 +369,38 @@ a:hover {
 }
 
 .likeBtn {
-    left: 20px;
+  left: 20px;
 }
 .commentBtn {
   left: 90px;
 }
+
+.commentPostBtn {
+  float:right;
+}
+.c11 {
+  width: 175px;
+  height: 30px;
+  padding: 4px 3px 3px;
+  font-size: 11px;
+  border: 1px solid #CCC;
+  resize: none;
+  }
+
+
+
+  .commentWrap {
+    height:60px;
+    padding-top:10px;
+  }
 
 .axnBtn {
   position: absolute;
   top: 20px;
   display:none;
   }​
+
+
 
   .twtr-hd,
   .twtr-ft {

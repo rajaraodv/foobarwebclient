@@ -47,22 +47,19 @@ function ListCtrl($scope, Project, $http, $timeout) {
   });
 
   /* Watch photocontainer and once it is populated, apply masonry*/
-  var container = $('#photoContainer');
+  $scope.container = $('#photoContainer');
   $scope.viewUpdated = false;
-
-
   $scope.$watch(function() {
-    return container ? container.children().length : 0;
+    return $scope.container ? $scope.container.children().length : 0;
   }, function() {
     if(!$scope.photoPosts) {
       return;
     }
-    container.imagesLoaded(function() {
-      container.masonry({
+    $scope.container.imagesLoaded(function() {
+      $scope.container.masonry({
         itemSelector: '.photo'
       });
     });
-    applyToggleBtns();
   });
 
   /* Pluralize Like and Comments */
@@ -77,13 +74,14 @@ function ListCtrl($scope, Project, $http, $timeout) {
       other: '{} comments'
     };
 
-  function applyToggleBtns() {
-        $('div.photo').on({
-            hover: function() {
-                var buttonDiv = $(this).children('a.axnBtn');
-                buttonDiv.toggle();
-            }
-        });
+    $scope.like = function(photoPost) {
+      photoPost.likes_cnt = photoPost.likes_cnt + 1;
+      photoPost.liked_by.push("50826c1595148ef179000039");
+    };
+
+    $scope.showCommentField = function(obj) {
+      console.log("***");
+      $scope.container.masonry('reload');
     };
 }
 
@@ -157,3 +155,17 @@ clientAppModule.config(['$routeProvider', function($routeProvider) {
     redirectTo: '/'
   });
 }]);
+
+clientAppModule.directive('showonhoverparent',  function() {
+      return {
+         link : function(scope, element) {
+            element.parent().bind('mouseenter', function() {
+                element.show();
+            });
+            element.parent().bind('mouseleave', function() {
+                 element.hide();
+            });
+       }
+   };
+ });
+
