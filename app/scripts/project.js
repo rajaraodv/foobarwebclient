@@ -172,7 +172,9 @@ clientAppModule.directive('togglecommentfield', function () {
       return {
          link : function(scope, element) {
             element.bind('click', function() {
-              element.parent().find('.commentWrap').toggle();
+              var commentWrap = element.parent().find('.commentWrap');
+              commentWrap.toggle();
+              commentWrap.find('.c11').focus();
               /*
                 When comment field is toggled, we should reload masonry coz card/item's height is now increased/decreased
               */
