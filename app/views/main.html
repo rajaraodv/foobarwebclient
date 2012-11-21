@@ -28,6 +28,8 @@
         </h1>
             <div id="photoContainer" class="photoContainer">
                 <div class="photo" ng-repeat="photoPost in photoPosts">
+                        <a class="likeBtn axnBtn btn"><i class="icon-thumbs-up"></i>Like</a>
+                        <a class="commentBtn axnBtn btn"><i class="icon-comment"></i>Comment</a>
                     <img ng-src="{{photoPost.photo.url}}" class="photoInfo" />
                     <div >
                         <label class="caption">

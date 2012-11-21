@@ -46,6 +46,7 @@ function ListCtrl($scope, Project, $http, $timeout) {
     $scope.photoPosts = data;
   });
 
+  /* Watch photocontainer and once it is populated, apply masonry*/
   var container = $('#photoContainer');
   $scope.viewUpdated = false;
 
@@ -61,8 +62,10 @@ function ListCtrl($scope, Project, $http, $timeout) {
         itemSelector: '.photo'
       });
     });
+    applyToggleBtns();
   });
 
+  /* Pluralize Like and Comments */
   $scope.pluralizeLikes = {
       0: '',
       one: '{} like',
@@ -74,7 +77,14 @@ function ListCtrl($scope, Project, $http, $timeout) {
       other: '{} comments'
     };
 
-
+  function applyToggleBtns() {
+        $('div.photo').on({
+            hover: function() {
+                var buttonDiv = $(this).children('a.axnBtn');
+                buttonDiv.toggle();
+            }
+        });
+    };
 }
 
 ListCtrl.$inject = ['$scope', 'Project', '$http', '$timeout'];
