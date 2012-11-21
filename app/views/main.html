@@ -29,7 +29,7 @@
             <div id="photoContainer" class="photoContainer">
                 <div class="photo" ng-repeat="photoPost in photoPosts">
                         <a showonhoverparent class="likeBtn axnBtn btn" ng-click='like(photoPost)'><i class="icon-thumbs-up" ></i>Like</a>
-                        <a showonhoverparent class="commentBtn axnBtn btn" ng-click='showCommentField(photoPost)'><i class="icon-comment"></i>Comment</a>
+                        <a showonhoverparent togglecommentfield class="commentBtn axnBtn btn" ><i class="icon-comment"></i>Comment</a>
                     <img ng-src="{{photoPost.photo.url}}" class="photoInfo" />
                     <div >
                         <label class="caption">
@@ -55,9 +55,9 @@
                         </div>
 
                     </div>
-                     <div class="commentWrap">
+                     <div class="commentWrap" ng-show="cf">
                             <textarea class="c11" placeholder="Add a comment..."></textarea>
-                                <a  class="btn btn-mini commentPostBtn" ng-click='showCommentField(photoPost)'><i class="icon-comment"></i>Comment</a>
+                                <a  class="btn btn-mini commentPostBtn" ><i class="icon-comment"></i>Comment</a>
                     </div>
                 </div>
 

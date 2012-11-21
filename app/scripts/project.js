@@ -80,8 +80,7 @@ function ListCtrl($scope, Project, $http, $timeout) {
     };
 
     $scope.showCommentField = function(obj) {
-      console.log("***");
-      $scope.container.masonry('reload');
+      $scope.cf =  true;
     };
 }
 
@@ -168,4 +167,18 @@ clientAppModule.directive('showonhoverparent',  function() {
        }
    };
  });
+
+clientAppModule.directive('togglecommentfield', function () {
+      return {
+         link : function(scope, element) {
+            element.bind('click', function() {
+              element.parent().find('.commentWrap').toggle();
+              /*
+                When comment field is toggled, we should reload masonry coz card/item's height is now increased/decreased
+              */
+              scope.container.masonry('reload');
+            });
+       }
+   };
+});
 
