@@ -104,7 +104,7 @@ module.exports = function( grunt ) {
 
     // the staging directory used during the process
     staging: 'temp',
-    // final build output
+    // final build output (*modified* to copy output to foobarnode/client folder)
     output: '../foobarnode/client',
 
     mkdirs: {
