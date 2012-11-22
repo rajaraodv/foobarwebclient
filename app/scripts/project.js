@@ -3,7 +3,7 @@
 function ListCtrl($scope, Project, $http, $timeout) {
   console.log(1);
   if(!$scope.loadTwitWidget) {
-    $scope.loadTwitWidget = new TWTR.Widget({
+    $scope.loadTwitWidget = new window.TWTR.Widget({
       id: 'twitter_widget_div',
       version: 2,
       type: 'search',
