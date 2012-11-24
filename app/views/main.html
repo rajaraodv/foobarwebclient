@@ -69,14 +69,13 @@
             Social Stream
         </h1>
         <div id="home_stream_inner">
-            <div id="twitter_widget_div">
+            <div id="twitter_widget_div" add-twtr-widget>
             </div>
         </div>
     </div>
-    <div id="icons_sharing">
-        <a href="#" onclick="return gclick()"><img id="google" src="/img/icon_social_g+.png"></a>
-        <a href="https://twitter.com/intent/tweet?text=Check out the Foo Bar from Cloud Foundry&amp;url=http://foobarbar.cloudfoundry.com&amp;related=cloudfoundry"
-        onclick="return poptweet('https://twitter.com/intent/tweet?text=Check out the Foo Bar from Cloud Foundry&amp;url=http://foobarbar.cloudfoundry.com&amp;related=cloudfoundry')"><img id="twitter" src="/img/icon_social_twitter.png"></a>
-        <a href="http://www.facebook.com/share.php?u=&lt;;url&gt;" onclick="return fbs_click()"><img src="/img/icon_social_fb.png"></a>
+    <div id="icons_sharing" ng-controller="ShareCtrl">
+        <a ng-click="gclick()"><img id="google" src="/img/icon_social_g+.png"></a>
+        <a ng-click="twtClick()" ><img id="twitter" src="/img/icon_social_twitter.png"></a>
+        <a ng-click="fbsClick()"><img src="/img/icon_social_fb.png"></a>
     </div>
 </div>

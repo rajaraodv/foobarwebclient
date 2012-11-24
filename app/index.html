@@ -32,13 +32,26 @@
             </script>
         <![endif]-->
         <!-- Add your site or application content here -->
-        <div id="header">
-            <div id="banner">
-                <a href="/how"><img src="/img/banner.png"></a>
-            </div>
-            <div id="logo">
-                <a href="/"><img src="/img/logo_foobar.png"></a>
-            </div>
+        <div id="header" ng-controller="HeaderCtrl">
+          <div id="banner">
+            <a href="/how">
+              <img src="/img/banner.png">
+            </a>
+          </div><!--/banner-->
+          <div id="login" class="dropdown">
+                <a class="dropdown-toggle whiteMenu" id="drop4" role="button" data-toggle="dropdown" href="#">{{loginText}} <b class="caret whiteCaret"></b></a>
+               <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                  <li><a tabindex="-1" href="#">Login with Twitter</a></li>
+                  <li><a tabindex="-1" href="#">Login with Facebook</a></li>
+                  <li class="divider" ng-show="loggedIn"></li>
+                  <li><a tabindex="-1" href="#" ng-show="loggedIn">Log Out</a></li>
+                </ul>
+          </div><!--/login-->
+          <div id="logo">
+            <a href="#">
+              <img src="/img/logo_foobar.png">
+            </a>
+          </div><!--/logo-->
         </div>
         <div id="main">
             <div id="nav">
@@ -90,13 +103,18 @@
         <script src="scripts/vendor/angular.js"></script>
         <script src="scripts/vendor/angular-resource.js"></script>
         <script src="scripts/vendor/twitterWidget.min.js"></script>
-
+        <script src="scripts/vendor/bootstrap-dropdown.js"></script>
 
         <!-- build:js scripts/scripts.js -->
-        <script src="scripts/foobar.js"></script>
-        <script src="scripts/project.js"></script>
+        <script src="scripts/clientApp.js"></script>
+        <script src="scripts/headerCtrl.js"></script>
+        <script src="scripts/mainCtrl.js"></script>
+        <script src="scripts/shareCtrl.js"></script>
+        <script src="scripts/editCtrl.js"></script>
+        <script src="scripts/galleryCtrl.js"></script>
+        <script src="scripts/mainCtrl.js"></script>
+        <script src="scripts/galleryCtrl.js"></script>
         <script src="scripts/mongolab.js"></script>
-
 
         <!-- endbuild -->
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
