@@ -62,7 +62,7 @@ clientAppModule.directive('addTwtrWidget', function() {
         title: '',
         subject: '',
         width: 150,
-        height: 800,
+        height: 700,
         theme: {
           shell: {
             background: '#ffffff',
@@ -90,6 +90,29 @@ clientAppModule.directive('addTwtrWidget', function() {
       element.bind('destroy', function() {
         scope.loadTwitWidget.stop();
       });
+    }
+  };
+});
+
+clientAppModule.factory('BackendService', ['$resource', function($resource) {
+  var BackendService = $resource('scripts/posts.json');
+  return BackendService;
+}]);
+
+clientAppModule.factory('LoginService', ['$resource', function($resource){
+  var LoginService = $resource('/session/user');
+  return LoginService;
+}]);
+
+clientAppModule.directive('addMasonry', function($timeout) {
+  return {
+    restrict: 'A',
+    link: function(scope) {
+      $timeout(function() {
+        scope.container.imagesLoaded(function() {
+          scope.container.masonry('reload');
+        });
+      }, 0);
     }
   };
 });
