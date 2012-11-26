@@ -104,7 +104,7 @@ clientAppModule.factory('LoginService', ['$resource', function($resource){
   return LoginService;
 }]);
 
-clientAppModule.directive('addMasonry', function($timeout) {
+clientAppModule.directive('addMasonry', ['$timeout', function($timeout) {
   return {
     restrict: 'A',
     link: function(scope) {
@@ -115,4 +115,4 @@ clientAppModule.directive('addMasonry', function($timeout) {
       }, 0);
     }
   };
-});
+}]);
