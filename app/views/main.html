@@ -28,8 +28,8 @@
         </h1>
         <div id="photoContainer" style="position:relative;height:800px;zoom:1;">
             <div class="photo" ng-repeat="photoPost in photoPosts">
-                <a login-required showonhoverparent class="likeBtn axnBtn btn" ng-click='like(photoPost)'><i ng-class="toggleLikeBtnIcon(photoPost)" ></i>{{toggleLikeBtnName(photoPost)}}</a>
-                <a login-required showonhoverparent togglecommentfield class="commentBtn axnBtn btn"><i class="icon-comment"></i>Comment</a>
+                <a login-required showonhoverparent class="likeBtn axnBtn btn btn-warning" ng-click='toggleLike(photoPost)'><i ng-class="toggleLikeBtnIcon(photoPost)" ></i>{{toggleLikeBtnName(photoPost)}}</a>
+                <a login-required showonhoverparent togglecommentfield class="commentBtn axnBtn btn btn-warning"><i class="icon-comment"></i>Comment</a>
                 <img ng-src="{{photoPost.photo.url}}" class="photoInfo" add-masonry="photoPost"
                 />
                 <div>
@@ -48,7 +48,8 @@
                     </div>
                 </div>
                 <div class="comments">
-                    <div class="comment" ng-repeat="comment in photoPost.comments">
+                    <div class="comment" toggle-delete-comment ng-repeat="comment in photoPost.comments">
+
                         <table width="100%" cellpadding=2px>
                             <tr>
                                 <td width="24px" valign="top">
@@ -60,14 +61,17 @@
                                         {{comment.text}}
                                     </label>
                                 </td>
+                                <td   ng-click="deleteComment(photoPost, comment)"  width="4px">
+                                    <label login-required class="  icon-remove deleteComment"></label>
+                                </td>
                                 <tr>
                         </table>
                     </div>
                 </div>
                 <div class="commentWrap" ng-show="cf">
-                    <textarea class="c11" placeholder="Add a comment...">
+                    <textarea ng-model="photoPost.newComment" class="c11" placeholder="Add a comment...">
                     </textarea>
-                    <a class="btn btn-mini commentPostBtn"><i class="icon-comment"></i>Comment</a>
+                    <a class="btn  btn-warning commentPostBtn"  ng-click="addComment(photoPost)"><i class="icon-comment"></i>Comment</a>
                 </div>
             </div>
         </div>

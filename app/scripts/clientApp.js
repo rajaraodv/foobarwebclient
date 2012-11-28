@@ -43,6 +43,23 @@ clientAppModule.directive('showonhoverparent', function() {
     }
   };
 });
+clientAppModule.directive('toggleDeleteComment', function() {
+  return {
+    link: function(scope, element) {
+      element.bind('mouseenter', function() {
+        //if the comment's creator is NOT the same as current user, don't show delete-comment button
+        if(scope.comment.creator._id !== scope.appUser._id) {
+          return;
+        }
+        element.find('.deleteComment').show();
+      });
+      element.bind('mouseleave', function() {
+        element.find('.deleteComment').hide();
+      });
+    }
+  };
+});
+
 
 clientAppModule.directive('togglecommentfield', function() {
   return {
