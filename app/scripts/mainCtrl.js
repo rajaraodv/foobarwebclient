@@ -1,10 +1,11 @@
 /*global $:false */
+/*jshint camelcase:false */
 'use strict';
 
 
-function MainCtrl($scope, Project, BackendService) {
-  $scope.photoPosts = BackendService.query();
-  /* Watch photocontainer and once it is populated, apply masonry*/
+function MainCtrl($scope, Project, PhotoPostService, $http) {
+  $scope.photoPosts = PhotoPostService.query();
+
   $scope.container = $('#photoContainer');
   $scope.container.imagesLoaded(function() {
     $scope.container.masonry({
@@ -12,12 +13,21 @@ function MainCtrl($scope, Project, BackendService) {
     });
   });
 
+  $scope.toggleLikeBtnName = function (photoPost) {
+    return $.inArray($scope.appUser._id, photoPost.liked_by) === 0 ? 'Unlike' : 'Like' ;
+  };
+
+  $scope.toggleLikeBtnIcon = function (photoPost) {
+    return $.inArray($scope.appUser._id, photoPost.liked_by) === 0 ? 'icon-thumbs-down' : 'icon-thumbs-up' ;
+  };
+
   /* Pluralize Like and Comments */
   $scope.pluralizeLikes = {
     0: '',
     one: '{} like',
     other: '{} likes'
   };
+
   $scope.pluralizeComments = {
     0: '',
     one: '{} comment',
@@ -25,13 +35,39 @@ function MainCtrl($scope, Project, BackendService) {
   };
 
   $scope.like = function(photoPost) {
-    photoPost.likes_cnt = photoPost.likes_cnt + 1;
-    photoPost.liked_by.push("50826c1595148ef179000039");
+    if(!$scope.loggedIn) {
+      return;
+    }
+    var requestConfig = {
+      'method': 'POST',
+      'url': '/likes',
+      'data': {
+        'post_id': photoPost._id
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-foobar-username': $scope.appUser.username,
+        'X-foobar-access-token': $scope.appUser.access_token
+      }
+    };
+    var response = $http(requestConfig);
+
+    response.success(function(data, status, headers, config) {
+      photoPost.likes_cnt = photoPost.likes_cnt + 1;
+      photoPost.liked_by.push($scope.appUser._id);
+    });
+
+    response.error(function(data, status, headers, config) {
+    });
+
   };
 
   $scope.showCommentField = function() {
+    if(!$scope.loggedIn) {
+      return;
+    }
     $scope.cf = true;
   };
 }
 
-MainCtrl.$inject = ['$scope', 'Project', 'BackendService'];
+MainCtrl.$inject = ['$scope', 'Project', 'PhotoPostService', '$http'];
