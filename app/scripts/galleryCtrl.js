@@ -1,12 +1,9 @@
 'use strict';
 
 
-function GalleryCtrl($scope, $location, Project) {
-  $scope.save = function() {
-    Project.save($scope.project, function(project) {
-      $location.path('/edit/' + project._id.$oid);
-    });
-  };
-}
+function GalleryCtrl($scope, $location) {
 
-GalleryCtrl.$inject = ['$scope', '$location', 'Project'];
+ }
+
+
+GalleryCtrl.$inject = ['$scope', '$location'];

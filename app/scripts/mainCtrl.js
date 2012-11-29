@@ -2,11 +2,17 @@
 /*jshint camelcase:false */
 'use strict';
 
-function MainCtrl($scope, Project, PhotoPostService, $http) {
+function MainCtrl($scope, PhotoPostService, $http) {
   $scope.photoPosts = [];
   $scope.page = 1;
   $scope.limit = 10;
   $scope.noMorePosts = false;
+
+//   $('#home_stream').css('display', 'none');
+//     $('#billboard').css('display', 'none');
+// $('#home_photos').css('width', '850px');
+// $('#icons_sharing').css('display', 'none');
+
 
   $scope.loadPhotoPosts = function() {
     if($scope.noMorePosts) {
@@ -33,12 +39,13 @@ function MainCtrl($scope, Project, PhotoPostService, $http) {
     });
 
     response.error(function(data) {
-        //If nothing is returned from the server or there was an error, set $scope.noMorePosts = true
+      //If nothing is returned from the server or there was an error, set $scope.noMorePosts = true
       $scope.noMorePosts = true;
       //todo: make error better
       alert(data.Error);
     });
-  }
+  };
+
   $scope.loadPhotoPosts();
 
   $scope.container = $('#photoContainer');
@@ -200,4 +207,4 @@ function MainCtrl($scope, Project, PhotoPostService, $http) {
   };
 }
 
-MainCtrl.$inject = ['$scope', 'Project', 'PhotoPostService', '$http'];
+MainCtrl.$inject = ['$scope', 'PhotoPostService', '$http'];

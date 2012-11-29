@@ -1,19 +1,16 @@
-'use strict'; /*global  angular:false MainCtrl:false EditCtrl:false GalleryCtrl:false */
+/*global  angular:false MainCtrl:false  GalleryCtrl:false */
+'use strict';
 
-var clientAppModule = angular.module('clientApp', ['mongolab']);
+var clientAppModule = angular.module('clientApp', ['ngResource']);
 clientAppModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
     controller: MainCtrl,
     templateUrl: 'views/main.html'
   }).
-  when('/edit/:projectId', {
-    controller: EditCtrl,
-    templateUrl: 'views/detail.html'
-  }).
   when('/gallery', {
-    controller: GalleryCtrl,
-    templateUrl: 'views/gallery.html'
+    controller: MainCtrl,
+    templateUrl: 'views/main.html'
   }).
   otherwise({
     redirectTo: '/'
@@ -55,6 +52,9 @@ clientAppModule.directive('togglecommentfield', function() {
   return {
     link: function(scope, element) {
       element.bind('click', function() {
+        if(!scope.loggedIn) {
+          return;
+        }
         var commentWrap = element.parent().find('.commentWrap');
         commentWrap.toggle();
         commentWrap.find('.c11').focus();
@@ -117,7 +117,7 @@ clientAppModule.factory('PhotoPostService', ['$resource', '$rootScope', function
   var PhotoPostService = $resource('/feeds/1/10', null, {
     'query': {
       'method': 'GET',
-      'isArray':true,
+      'isArray': true,
       'headers': {
         'X-foobar-username': $rootScope.appUser.username,
         'X-foobar-access-token': $rootScope.appUser.access_token
@@ -173,13 +173,13 @@ clientAppModule.directive('loginRequired', ['$anchorScroll', function($anchorScr
 }]);
 
 clientAppModule.directive('whenScrolled', function() {
-    return function(scope, elm, attr) {
-        var raw = elm[0];
+  return function(scope, elm, attr) {
+    var raw = elm[0];
 
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.$apply(attr.whenScrolled);
-            }
-        });
-    };
+    elm.bind('scroll', function() {
+      if(raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+        scope.$apply(attr.whenScrolled);
+      }
+    });
+  };
 });
