@@ -20,17 +20,6 @@ clientAppModule.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-//An example of creating mocks in Angularjs
-// clientAppModule.config(['$provide', function($provide) {
-//   $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-// }]);
-// clientAppModule.run(['$httpBackend', function($httpBackend){
-//   $httpBackend.whenGET('scripts/mocks/photoPosts.json').passThrough();
-//   $httpBackend.whenGET('/session/user').respond(200, {'username': 'raja', '_id':'userId12345'}, {header: 'one'});
-//   $httpBackend.whenGET('views/main.html').passThrough();
-//   $httpBackend.whenPOST('/likes').respond(200, {'_id': 'likeid'});
-// }]);
-
 clientAppModule.directive('showonhoverparent', function() {
   return {
     link: function(scope, element) {
@@ -43,6 +32,7 @@ clientAppModule.directive('showonhoverparent', function() {
     }
   };
 });
+
 clientAppModule.directive('toggleDeleteComment', function() {
   return {
     link: function(scope, element) {
@@ -85,7 +75,7 @@ clientAppModule.directive('addTwtrWidget', function() {
         id: 'twitter_widget_div',
         version: 2,
         type: 'search',
-        search: 'node.js',
+        search: 'cloudfoundry, vmware',
         interval: 20000,
         title: '',
         subject: '',
@@ -122,6 +112,7 @@ clientAppModule.directive('addTwtrWidget', function() {
   };
 });
 
+//deprecated as 'Promise' doesnt allow infinite scrolling
 clientAppModule.factory('PhotoPostService', ['$resource', '$rootScope', function($resource, $rootScope) {
   var PhotoPostService = $resource('/feeds/1/10', null, {
     'query': {
@@ -180,3 +171,15 @@ clientAppModule.directive('loginRequired', ['$anchorScroll', function($anchorScr
   };
   return loginRequired;
 }]);
+
+clientAppModule.directive('whenScrolled', function() {
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+
+        elm.bind('scroll', function() {
+            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                scope.$apply(attr.whenScrolled);
+            }
+        });
+    };
+});
